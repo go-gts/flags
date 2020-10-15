@@ -244,7 +244,7 @@ func (set CommandSet) Compile() Function {
 				}
 			}
 
-			return nil
+			return errComp
 		}
 
 		cmd, ok := set[head]
