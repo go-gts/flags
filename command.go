@@ -117,7 +117,7 @@ func (set CommandSet) compBash(ctx *Context) error {
 	funcs := alignLines(strings.Join(cmdFuncs, "\n"), '&')
 	funcs = strings.ReplaceAll(funcs, "\n", "\n        ")
 
-	comp := fmt.Sprintf(compSetBashFormat, cmdName, funcName, comps, funcs)
+	comp := fmt.Sprintf(compSetBashFormat, funcName, comps, cmdName, funcs)
 
 	filename := fmt.Sprintf("%s-completion.bash", ctx.Name[0])
 	return fileAppend(filename, comp)
