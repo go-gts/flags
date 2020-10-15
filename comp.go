@@ -16,7 +16,7 @@ var compSetBashFormat = strings.Join([]string{
 	"    do",
 	"        local s=\"${COMP_WORDS[$i]}\"",
 	"        case \"$s\" in",
-	"            gts)",
+	"            %s)",
 	"                (( i++ ))",
 	"                break",
 	"                ;;",

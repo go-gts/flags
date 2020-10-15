@@ -105,6 +105,7 @@ func (set CommandSet) Ronn(ctx *Context) error {
 func (set CommandSet) compBash(ctx *Context) error {
 	funcName := strings.Join(ctx.Name, "_")
 
+	cmdName := ctx.Name[len(ctx.Name)-1]
 	cmdNames := set.Commands()
 	cmdFuncs := make([]string, len(cmdNames))
 
@@ -116,7 +117,7 @@ func (set CommandSet) compBash(ctx *Context) error {
 	funcs := alignLines(strings.Join(cmdFuncs, "\n"), '&')
 	funcs = strings.ReplaceAll(funcs, "\n", "\n        ")
 
-	comp := fmt.Sprintf(compSetBashFormat, funcName, comps, funcs)
+	comp := fmt.Sprintf(compSetBashFormat, cmdName, funcName, comps, funcs)
 
 	filename := fmt.Sprintf("%s-completion.bash", ctx.Name[0])
 	return fileAppend(filename, comp)
