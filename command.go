@@ -154,7 +154,7 @@ func (set CommandSet) Comp(ctx *Context) error {
 		return ctx.Raise(err)
 	}
 
-	return nil
+	return errComp
 }
 
 // Help lists the names and descriptions of the commands registered.
@@ -232,14 +232,14 @@ func (set CommandSet) Compile() Function {
 				}
 			}
 
-			if err := set.Comp(ctx); err != nil {
+			if err := set.Comp(ctx); err != errComp {
 				return fmt.Errorf("while generating completion for %s: %v", ctx.JoinedName(), err)
 			}
 
 			if len(ctx.Name) == 1 {
 				bash := fmt.Sprintf("%s-completion.bash", ctx.Name[0])
 				bcomp := fmt.Sprintf("complete -F _%[1]s %[1]s", ctx.Name[0])
-				if err := fileAppend(bash, bcomp); err != nil {
+				if err := fileAppend(bash, bcomp); err != errComp {
 					return fmt.Errorf("while generating completion for %s: %v", ctx.JoinedName(), err)
 				}
 			}
