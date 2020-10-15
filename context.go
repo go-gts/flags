@@ -77,7 +77,7 @@ func (ctx *Context) Parse(pos *Positional, opt *Optional) error {
 				}
 			}
 
-			if err := Comp(ctx, pos, opt); err != nil {
+			if err := Comp(ctx, pos, opt); err != errComp {
 				return ctx.Raise(err)
 			}
 
