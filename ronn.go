@@ -110,5 +110,5 @@ func Ronn(ctx *Context, pos *Positional, opt *Optional) error {
 		return ctx.Raise(err)
 	}
 
-	return nil
+	return errRonn
 }

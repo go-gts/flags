@@ -54,7 +54,7 @@ func (ctx *Context) Parse(pos *Positional, opt *Optional) error {
 			b.WriteString(Help(pos, opt))
 
 		case errRonn:
-			if err := Ronn(ctx, pos, opt); err != nil {
+			if err := Ronn(ctx, pos, opt); err != errRonn {
 				return ctx.Raise(err)
 			}
 			return errRonn

@@ -195,7 +195,7 @@ func (set CommandSet) Compile() Function {
 
 		switch head {
 		case "generate-ronn-templates":
-			if err := set.Ronn(ctx); err != nil {
+			if err := set.Ronn(ctx); err != errRonn {
 				return fmt.Errorf("while generating ronn file for %s: %v", ctx.JoinedName(), err)
 			}
 			for name, cmd := range set {
@@ -204,7 +204,7 @@ func (set CommandSet) Compile() Function {
 					return fmt.Errorf("while generating ronn file for %s: %v", name, err)
 				}
 			}
-			return nil
+			return errRonn
 
 		case "generate-completions":
 			if len(ctx.Name) == 1 {
