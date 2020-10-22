@@ -161,15 +161,6 @@ func Parse(pos *Positional, opt *Optional, args []string) ([]string, error) {
 
 	n := 0
 	for i, name := range pos.Order {
-		if len(extra) == 0 {
-			list := make([]string, len(pos.Order)-i)
-			for j, name := range pos.Order[i:] {
-				list[j] = fmt.Sprintf("%q", name)
-			}
-			missing := strings.Join(list, ", ")
-			return extra, fmt.Errorf("missing positional arguments(s): %s", missing)
-		}
-
 		switch pos.Args[name].Value.(type) {
 		case *StringSliceValue:
 			for len(extra)+n > pos.Len() {
@@ -179,6 +170,14 @@ func Parse(pos *Positional, opt *Optional, args []string) ([]string, error) {
 				}
 			}
 		default:
+			if len(extra) == 0 {
+				list := make([]string, len(pos.Order)-i)
+				for j, name := range pos.Order[i:] {
+					list[j] = fmt.Sprintf("%q", name)
+				}
+				missing := strings.Join(list, ", ")
+				return extra, fmt.Errorf("missing positional arguments(s): %s", missing)
+			}
 			head, extra = shift(extra)
 			if err := pos.Args[name].Value.Set(head); err != nil {
 				return extra, err
