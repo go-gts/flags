@@ -40,7 +40,7 @@ func TypeOf(s string) ArgumentType {
 	if strings.HasPrefix(s, "--") {
 		return LongType
 	}
-	if mustMatchString("-[^0-9]+", s) {
+	if mustMatchString("^-[A-Za-z]+$", s) {
 		return ShortType
 	}
 	return ValueType
